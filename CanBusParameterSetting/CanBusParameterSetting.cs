@@ -8,6 +8,11 @@ using CommonModule.Core;
 
 namespace CanBusParameterSetting
 {
+    /* 
+     * hz 정보
+     * 1 mhz = 1,000 khz = 1,000,000 hz
+     */
+
     public class BusSettingInfo
     {
         public int Bitrate { get; set; }
@@ -37,11 +42,8 @@ namespace CanBusParameterSetting
                 return Singleton<CanBitTimingCalculator>.Instance;
             }
         }
-        // hz 단위.
-        // 1 mhz = 1,000 khz = 1,000,000 hz
 
-        //prescaler 
-        // * prescaler in only int.
+        //prescaler (prescaler in only int type)
         public decimal Prescaler(int? bitrate, int? tseg1, int? tseg2, int hz = 8000000)
         {
             if (bitrate != null && tseg1 != null && tseg2 != null)
@@ -49,7 +51,7 @@ namespace CanBusParameterSetting
             return 0;
         }
 
-        // sample point 
+        //sample point 
         public double? SamplePoint(int? tseg1, int? tseg2)
         {
             if (tseg1 != null && tseg2 != null)
@@ -57,7 +59,7 @@ namespace CanBusParameterSetting
             return null;
         }
 
-        // No of Tq 
+        //Number of Tq 
         // * Max BTL => totalTq x 10
         //public double NumberOfTimeQuanta(double bitrate, int hz)
         //{
@@ -81,7 +83,7 @@ namespace CanBusParameterSetting
             return setting;
         }
 
-        //CanFd
+        //CAN(FD) Bitrate에 따른 Prescaler/SamplePoint/Tseg1/Tseg2 계산
         public List<DetailBusSetting> DetailData(int bitrate, int khz)
         {
             int prescaler = 0;
